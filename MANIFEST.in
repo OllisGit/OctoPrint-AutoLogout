@@ -1,0 +1,4 @@
+include README.md
+recursive-include octoprint_AutoLogout/templates *
+recursive-include octoprint_AutoLogout/translations *
+recursive-include octoprint_AutoLogout/static *
