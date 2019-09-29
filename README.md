@@ -4,12 +4,14 @@
 [![Released](https://img.shields.io/badge/dynamic/json.svg?color=brightgreen&label=released&url=https://api.github.com/repos/OllisGit/OctoPrint-AutoLogout/releases&query=$[0].published_at)]()
 ![GitHub Releases (by Release)](https://img.shields.io/github/downloads/OllisGit/OctoPrint-AutoLogout/latest/total.svg)
 
-Plugin starts a countdown timer after login and if timer is count, zero the user is automaticaly logged out.
-The timer is restarted each time a user clicks to "something" like a tab-change. 
+Plugin starts a countdown timer after login and if the timer is count to zero, the user is automatically logged out.
+The timer is restarted each time a user clicks on "something" like a tab-change. 
 
 ## Screenshots
-![plugin-settings](screenshots/plugin-settings.png "Plugin-Settings")
 ![plugin-navbar](screenshots/plugin-navbar.png "Plugin-Navbar")
+
+![plugin-settings](screenshots/plugin-settings.png "Plugin-Settings")
+
 
 
 ## Setup

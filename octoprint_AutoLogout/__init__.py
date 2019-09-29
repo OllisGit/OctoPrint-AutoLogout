@@ -32,7 +32,8 @@ class AutologoutPlugin(octoprint.plugin.SettingsPlugin,
 	##~~ SettingsPlugin mixin
 	def get_settings_defaults(self):
 		return dict(
-			countdownTimeInMinutes = 2
+			countdownTimeInMinutes = 10,
+			isEnabled = True
 		)
 
 	##~~ TemplatePlugin mixin
@@ -69,7 +70,7 @@ class AutologoutPlugin(octoprint.plugin.SettingsPlugin,
 				current=self._plugin_version,
 
 				# update method: pip
-				pip="https://github.com/OllisGit/OctoPrint-AutoLogout/archive/{target_version}.zip"
+				pip="https://github.com/OllisGit/OctoPrint-AutoLogout/releases/latest/download/master.zip"
 			)
 		)
 

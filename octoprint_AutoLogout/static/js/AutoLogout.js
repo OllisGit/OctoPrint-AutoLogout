@@ -17,10 +17,19 @@ $(function() {
        // enable support of resetSettings
         new ResetSettingsUtil().assignResetSettingsFeature(PLUGIN_ID, function(data){
                                 // assign default settings-values
-                                elf.pluginSettings.countdownTimeInMinutes(data.countdownTimeInMinutes);
+                                self.pluginSettings.countdownTimeInMinutes(data.countdownTimeInMinutes);
+                                self.pluginSettings.isEnabled(data.isEnabled);
         });
 
         function startLogoutCounter() {
+
+            if (self.pluginSettings.isEnabled() == false){
+                if (countdownTimer != null) {
+                    clearInterval(countdownTimer);
+                }
+                return;
+            }
+
             var countdownDisplay = $('#autologout-countdown');
             var counter = countdownTimeInMinutes * 60, minutes, seconds;
             if (countdownTimer != null) {
@@ -39,7 +48,7 @@ $(function() {
                 if (--counter < 0) {
                     countdownReachedFunction();
                 }
-                console.info(".");
+                //console.info(".");
             }, 1000);
         }
 
