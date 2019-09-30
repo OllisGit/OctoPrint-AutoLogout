@@ -11,7 +11,7 @@ $(function() {
     var countdownTimeInMinutes = null;
     var countdownReachedFunction = null;
     var countdownTimer = null;
-    function AutologoutViewModel(parameters) {
+    function AutoLogoutViewModel(parameters) {
         var self = this;
 
        // enable support of resetSettings
@@ -92,7 +92,7 @@ $(function() {
      * and a full list of the available options.
      */
     OCTOPRINT_VIEWMODELS.push({
-        construct: AutologoutViewModel,
+        construct: AutoLogoutViewModel,
         // ViewModels your plugin depends on, e.g. loginStateViewModel, settingsViewModel, ...
         dependencies: [
             "loginStateViewModel", "settingsViewModel"

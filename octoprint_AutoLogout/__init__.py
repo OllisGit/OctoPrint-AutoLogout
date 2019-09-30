@@ -4,7 +4,7 @@ from __future__ import absolute_import
 import octoprint.plugin
 from octoprint.events import eventManager, Events
 import flask
-class AutologoutPlugin(octoprint.plugin.SettingsPlugin,
+class AutoLogoutPlugin(octoprint.plugin.SettingsPlugin,
                        octoprint.plugin.AssetPlugin,
 					   octoprint.plugin.EventHandlerPlugin,
 					   octoprint.plugin.SimpleApiPlugin,
@@ -57,7 +57,7 @@ class AutologoutPlugin(octoprint.plugin.SettingsPlugin,
 		# for details.
 		return dict(
 			AutoLogout=dict(
-				displayName="Autologout Plugin",
+				displayName="AutoLogout Plugin",
 				displayVersion=self._plugin_version,
 
 				# version check: github repository
@@ -79,7 +79,7 @@ __plugin_name__ = "AutoLogout Plugin"
 
 def __plugin_load__():
 	global __plugin_implementation__
-	__plugin_implementation__ = AutologoutPlugin()
+	__plugin_implementation__ = AutoLogoutPlugin()
 
 	global __plugin_hooks__
 	__plugin_hooks__ = {
