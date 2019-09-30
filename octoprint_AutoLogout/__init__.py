@@ -12,9 +12,6 @@ class AutologoutPlugin(octoprint.plugin.SettingsPlugin,
 
 	# start/stop event-hook
 	def on_event(self, event, payload):
-		#self._eventLogging("EVENT: " + event)
-
-		#if event == Events.FILE_SELECTED:
 		pass
 
 	def on_api_get(self, request):

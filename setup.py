@@ -14,7 +14,7 @@ plugin_package = "octoprint_AutoLogout"
 plugin_name = "OctoPrint-AutoLogout"
 
 # The plugin's version. Can be overwritten within OctoPrint's internal data via __plugin_version__ in the plugin module
-plugin_version = "1.0.0dev"
+plugin_version = "1.0.0"
 
 # The plugin's description. Can be overwritten within OctoPrint's internal data via __plugin_description__ in the plugin
 # module
