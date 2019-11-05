@@ -17,7 +17,7 @@ $(function() {
         // assign the injected parameters, e.g.:
         self.loginStateViewModel = parameters[0];
         self.settingsViewModel = parameters[1];
-debugger
+
        // enable support of resetSettings
         new ResetSettingsUtil().assignResetSettingsFeature(PLUGIN_ID, function(data){
                                 // assign default settings-values
@@ -28,7 +28,7 @@ debugger
         function startLogoutCounter() {
 
             // start only if plugin enabled and user is logged in...and stop if not ;-)
-            if (self.pluginSettings.isEnabled() == false || self.loginStateViewModel.loggedIn() == false){
+            if (self.pluginSettings == null || self.pluginSettings.isEnabled() == false || self.loginStateViewModel.loggedIn() == false){
                 if (countdownTimer != null) {
                     clearInterval(countdownTimer);
                 }
