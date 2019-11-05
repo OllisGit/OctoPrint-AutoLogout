@@ -14,6 +14,10 @@ $(function() {
     function AutoLogoutViewModel(parameters) {
         var self = this;
 
+        // assign the injected parameters, e.g.:
+        self.loginStateViewModel = parameters[0];
+        self.settingsViewModel = parameters[1];
+debugger
        // enable support of resetSettings
         new ResetSettingsUtil().assignResetSettingsFeature(PLUGIN_ID, function(data){
                                 // assign default settings-values
@@ -23,7 +27,8 @@ $(function() {
 
         function startLogoutCounter() {
 
-            if (self.pluginSettings.isEnabled() == false){
+            // start only if plugin enabled and user is logged in...and stop if not ;-)
+            if (self.pluginSettings.isEnabled() == false || self.loginStateViewModel.loggedIn() == false){
                 if (countdownTimer != null) {
                     clearInterval(countdownTimer);
                 }
@@ -52,19 +57,30 @@ $(function() {
             }, 1000);
         }
 
-        // assign the injected parameters, e.g.:
-        self.loginStateViewModel = parameters[0];
-        self.settingsViewModel = parameters[1];
-
         self.pluginSettings = null;
+
         self.onBeforeBinding = function() {
             // assign current pluginSettings
             self.pluginSettings = self.settingsViewModel.settings.plugins[PLUGIN_ID];
 
-            countdownTimeInMinutes = self.pluginSettings["countdownTimeInMinutes"]()
+            countdownTimeInMinutesObserver = self.pluginSettings.countdownTimeInMinutes;
+            countdownTimeInMinutes = countdownTimeInMinutesObserver();
+            countdownTimeInMinutesObserver.subscribe(function(newValue){
+                countdownTimeInMinutes = newValue;
+                startLogoutCounter();
+            });
+
+            self.pluginSettings.isEnabled.subscribe(function(newValue){
+                if (newValue == true){
+                    startLogoutCounter();
+                }
+            });
 
             countdownReachedFunction = function(){
-                self.loginStateViewModel.logout();
+                // only logout when currently logged in
+                if (self.loginStateViewModel.loggedIn() == true){
+                    self.loginStateViewModel.logout();
+                }
             }
         }
 
