@@ -18,7 +18,7 @@ $(function() {
         self.loginStateViewModel = parameters[0];
         self.settingsViewModel = parameters[1];
 
-       // enable support of resetSettings
+        // enable support of resetSettings
         new ResetSettingsUtil().assignResetSettingsFeature(PLUGIN_ID, function(data){
                                 // assign default settings-values
                                 self.pluginSettings.countdownTimeInMinutes(data.countdownTimeInMinutes);
@@ -42,6 +42,11 @@ $(function() {
             }
 
             countdownTimer = setInterval(function () {
+                if (self.loginStateViewModel.loggedIn() == false){
+                    //stop timer
+                    clearInterval(countdownTimer);
+                }
+
                 minutes = parseInt(counter / 60, 10)
                 seconds = parseInt(counter % 60, 10);
 
@@ -51,6 +56,9 @@ $(function() {
                 countdownDisplay.text( minutes + ":" + seconds );
 
                 if (--counter < 0) {
+                    //stop timer
+                    clearInterval(countdownTimer);
+                    // execute logout-stuff
                     countdownReachedFunction();
                 }
                 //console.info(".");
