@@ -10,8 +10,46 @@ class AutoLogoutPlugin(octoprint.plugin.SettingsPlugin,
 					   octoprint.plugin.SimpleApiPlugin,
                        octoprint.plugin.TemplatePlugin):
 
+	def _sendDataToClient(self, payloadDict):
+		self._plugin_manager.send_plugin_message(self._identifier,
+												 payloadDict)
+
+	#### print job finished
+	# printStatus = "success", "failed", "canceled"
+	def _printJobFinished(self, printStatus, payload):
+		if (self._settings.get_boolean(["isEnabledByAfterPrint"])):
+			if (self._settings.get(["afterPrintStatus"]) == "anyStatus"):
+				self._doLogout()
+				pass
+			else:
+				if (printStatus == "success"):
+					self._doLogout()
+					pass
+			pass
+
+	def _doLogout(self):
+		payload = {
+			"action": "doLogout"
+		}
+		self._sendDataToClient(payload)
+		pass
+
+	def initialize(self):
+		self.alreadyCanceled = False
+
 	# start/stop event-hook
 	def on_event(self, event, payload):
+
+		if Events.PRINT_STARTED == event:
+			self.alreadyCanceled = False
+		elif Events.PRINT_DONE == event:
+			self._printJobFinished("success", payload)
+		elif Events.PRINT_FAILED == event:
+			if self.alreadyCanceled == False:
+				self._printJobFinished("failed", payload)
+		elif Events.PRINT_CANCELLED == event:
+			self.alreadyCanceled = True
+			self._printJobFinished("canceled", payload)
 		pass
 
 	def on_api_get(self, request):
@@ -30,7 +68,9 @@ class AutoLogoutPlugin(octoprint.plugin.SettingsPlugin,
 	def get_settings_defaults(self):
 		return dict(
 			countdownTimeInMinutes = 10,
-			isEnabled = True
+			isEnabledByInactivity = True,
+			isEnabledByAfterPrint = True,
+			afterPrintStatus = "anyStatus"
 		)
 
 	##~~ TemplatePlugin mixin
@@ -45,7 +85,7 @@ class AutoLogoutPlugin(octoprint.plugin.SettingsPlugin,
 		# Define your plugin's asset files to automatically include in the
 		# core UI here.
 		return dict(
-			js=["js/AutoLogout.js", "js/ResetSettingsUtil.js"],
+			js=["js/AutoLogout.js", "js/ResetSettingsUtilV3.js"],
 			css=["css/AutoLogout.css"],
 			less=["less/AutoLogout.less"]
 		)

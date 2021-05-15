@@ -3,12 +3,10 @@
     <div class="control-group">
         <div class="controls">
             <label class="checkbox">
-                <input type="checkbox" data-bind="checked: pluginSettings.isEnabled" > Activated
+                <input type="checkbox" data-bind="checked: pluginSettings.isEnabledByInactivity" > Autologout by inactivity
             </label>
         </div>
     </div>
-
-
     <div class="control-group">
         <div class="controls">
             <label>Timeout:
@@ -19,4 +17,28 @@
             </label>
         </div>
     </div>
+    <hr/>
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox">
+                <input type="checkbox" data-bind="checked: pluginSettings.isEnabledByAfterPrint" > Autologout after print
+            </label>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <label>
+                <select data-bind="value: pluginSettings.afterPrintStatus"  class="input-medium">
+                    <option value="onlySuccess">only succesful</option>
+                    <option value="anyStatus">any status</option>
+                </select>
+            </label>
+        </div>
+    </div>
+
+
+
+
+
 </form>

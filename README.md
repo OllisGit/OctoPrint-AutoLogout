@@ -4,6 +4,9 @@
 [![Released](https://img.shields.io/badge/dynamic/json.svg?color=brightgreen&label=released&url=https://api.github.com/repos/OllisGit/OctoPrint-AutoLogout/releases&query=$[0].published_at)]()
 ![GitHub Releases (by Release)](https://img.shields.io/github/downloads/OllisGit/OctoPrint-AutoLogout/latest/total.svg)
 
+Plugin log out the user if there is some time of inactvity or after a print job.
+The time of inactivity and also the print status for the logout can be adjusted.
+
 Plugin starts a countdown timer after login and if the timer is count to zero, the user is automatically logged out.
 The timer is restarted each time a user clicks on "something" like a tab-change.
 
@@ -18,7 +21,6 @@ If you like it, I would be thankful about a cup of coffee :)
 ![plugin-navbar](screenshots/plugin-navbar.png "Plugin-Navbar")
 
 ![plugin-settings](screenshots/plugin-settings.png "Plugin-Settings")
-
 
 
 ## Setup

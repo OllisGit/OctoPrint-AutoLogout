@@ -18,17 +18,10 @@ $(function() {
         self.loginStateViewModel = parameters[0];
         self.settingsViewModel = parameters[1];
 
-        // enable support of resetSettings
-        new ResetSettingsUtil().assignResetSettingsFeature(PLUGIN_ID, function(data){
-                                // assign default settings-values
-                                self.pluginSettings.countdownTimeInMinutes(data.countdownTimeInMinutes);
-                                self.pluginSettings.isEnabled(data.isEnabled);
-        });
-
         function startLogoutCounter() {
 
             // start only if plugin enabled and user is logged in...and stop if not ;-)
-            if (self.pluginSettings == null || self.pluginSettings.isEnabled() == false || self.loginStateViewModel.loggedIn() == false){
+            if (self.pluginSettings == null || self.pluginSettings.isEnabledByInactivity() == false || self.loginStateViewModel.loggedIn() == false){
                 if (countdownTimer != null) {
                     clearInterval(countdownTimer);
                 }
@@ -71,6 +64,11 @@ $(function() {
             // assign current pluginSettings
             self.pluginSettings = self.settingsViewModel.settings.plugins[PLUGIN_ID];
 
+            // enable support of resetSettings
+            new ResetSettingsUtilV3(self.pluginSettings).assignResetSettingsFeature(PLUGIN_ID, function(data){
+            // no additional reset function
+            });
+
             countdownTimeInMinutesObserver = self.pluginSettings.countdownTimeInMinutes;
             countdownTimeInMinutes = countdownTimeInMinutesObserver();
             countdownTimeInMinutesObserver.subscribe(function(newValue){
@@ -78,7 +76,7 @@ $(function() {
                 startLogoutCounter();
             });
 
-            self.pluginSettings.isEnabled.subscribe(function(newValue){
+            self.pluginSettings.isEnabledByInactivity.subscribe(function(newValue){
                 if (newValue == true){
                     startLogoutCounter();
                 }
@@ -91,6 +89,22 @@ $(function() {
                 }
             }
         }
+
+        // receive data from server
+        self.onDataUpdaterPluginMessage = function (plugin, data) {
+
+            if (plugin != PLUGIN_ID) {
+                return;
+            }
+
+            if ("doLogout" == data.action){
+                countdownReachedFunction();
+                return;
+            }
+
+        }
+
+
 
         countdownStartEventFunction = function (){
             startLogoutCounter();
