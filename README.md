@@ -18,8 +18,6 @@ If you like it, I would be thankful about a cup of coffee :)
 [![More coffee, more code](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6SW5R6ZUKLB5E&source=url)
 
 ## Screenshots
-![plugin-navbar](screenshots/plugin-navbar.png "Plugin-Navbar")
-
 ![plugin-settings](screenshots/plugin-settings.png "Plugin-Settings")
 
 
